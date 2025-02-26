@@ -8,6 +8,15 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
-  return <Welcome />;
+export async function loader({ params }: Route.LoaderArgs) {
+  // const product = await fakeDb.getProduct(params.pid);
+  // return product;
+  const time = new Date().toLocaleTimeString();
+  return { time };
+}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const { time } = loaderData;
+  console.log({ time });
+  return <Welcome time={time} />;
 }
